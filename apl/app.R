@@ -9,13 +9,13 @@ library(ggplot2)
 tautan_apl_lain <- tags$a(
   shiny::icon("shapes"),
   "Lainnya",
-  href = "https://people.usd.ac.id/~ydkristanto/index.php/media-pengajaran/",
+  href = "https://kristantomath.com/matematika-untuk-smp-mts-kelas-ix/",
   target = "_blank"
 )
 tautan_github <- tags$a(
   shiny::icon("github"),
   "Github",
-  href = "https://github.com/ydkristanto/apl-simulasi-tabungan",
+  href = "https://github.com/ydkristanto/apl-lempar-undi-dadu",
   target = "_blank"
 )
 
@@ -61,14 +61,20 @@ ui <- page_navbar(
       ),
       hr(),
       #### Tombol eksperimen ----
-      actionButton(
-        "tombol_eksperimen",
-        "Lempar undi!"
+      p(
+        actionButton(
+          "tombol_eksperimen",
+          "Lempar undi!",
+          width = "100%"
+        )
       ),
       #### Tombol hapus ----
-      actionButton(
-        "tombol_hapus",
-        "Hapus data"
+      p(
+        actionButton(
+          "tombol_hapus",
+          "Hapus data",
+          width = "100%"
+        )
       )
     ),
     conditionalPanel(
@@ -104,7 +110,8 @@ ui <- page_navbar(
       nav_panel(
         title = "Tabel",
         tableOutput("luaran_tabel")
-      )
+      ),
+      full_screen = TRUE
     )
   ),
   ## Informasi ----
@@ -117,13 +124,16 @@ ui <- page_navbar(
         #### Tentang ----
         nav_panel(
           title = "Tentang",
-          p("Matematika yang terlibat dalam permasalahan deposito dan tabungan berjangka merupakan matematika yang cukup kompleks bagi sebagian besar peserta didik. Aplikasi berbasis web ini menyediakan sarana bagi peserta didik untuk melakukan simulasi terhadap penghitungan deposito dan tabungan berjangka. Dengan demikian, peserta didik diharapkan dapat menemukan ide elementer dari permasalahan deposito dan tabungan berjangka."),
-          p("Bagi pendidik, aplikasi ini dapat digunakan untuk memfasilitasi peserta didiknya bermatematika. Aplikasi ini cocok untuk pembelajaran klasikal, penyelidikan dalam kelompok kecil maupun individu. Sebagai saran, pendidik dapat menyiapkan beberapa masalah tentang deposito atau tabungan berjangka sebagai panduan peserta didik untuk melakukan penyelidikan matematis.")
+          p("Aplikasi berbasis web ini memiliki dua tujuan. Pertama, aplikasi ini menunjukkan frekuensi relatif atau peluang empiris kejadian yang melibatkan lempar undi dadu. Frekuensi relatif tersebut disajikan dalam diagram maupun tabel."),
+          p("Tujuan kedua, aplikasi ini mendemonstrasikan apa yang terjadi terhadap frekuensi relatif ketika banyak percobaan semakin besar. Frekuensi relatif tersebut semakin mendekati peluang teoretisnya ketika banyak percobaannya semakin besar."),
+          hr(),
+          p("Aplikasi ini merupakan aktivitas pembelajaran penunjang untuk buku Matematika untuk SMP/MTs Kelas IX yang diterbitkan oleh Pusat Perbukuan, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi. Unduh atau baca bukunya di ", a("https://buku.kemdikbud.go.id/katalog/matematika-untuk-smpmts-kelas-ix.", href = "https://buku.kemdikbud.go.id/katalog/matematika-untuk-smpmts-kelas-ix", target = "_blank"), " Untuk melihat sumber belajar penunjang lainnya untuk buku tersebut, silakan kunjungi ", a("https://kristantomath.com/matematika-untuk-smp-mts-kelas-ix/.", href = "https://kristantomath.com/matematika-untuk-smp-mts-kelas-ix/", target = "_blank"))
         ),
         nav_panel(
           #### Alat ----
           title = "Alat",
-          p("Aplikasi ini dikembangkan dengan menggunakan bahasa pemrograman", a("R", href = "https://www.R-project.org/", target = "_blank"), "dan paket", a("Shiny.", href = "https://CRAN.R-project.org/package=shiny", target = "_blank"), "Paket", a("shinylive", href = "https://posit-dev.github.io/r-shinylive/", target = "_blank"), "digunakan untuk mengekspor aplikasi ini agar dapat dijalankan di peramban web tanpa peladen R yang terpisah. Tata letak dasbor ini diatur dengan menggunakan ", a("bslib.", href = "https://CRAN.R-project.org/package=bslib", target = "_blank"))
+          p("Aplikasi ini dikembangkan dengan menggunakan bahasa pemrograman", a("R", href = "https://www.R-project.org/", target = "_blank"), "dan paket", a("Shiny.", href = "https://CRAN.R-project.org/package=shiny", target = "_blank"), "Paket", a("shinylive", href = "https://posit-dev.github.io/r-shinylive/", target = "_blank"), "digunakan untuk mengekspor aplikasi ini agar dapat dijalankan di peramban web tanpa peladen R yang terpisah. Tata letak dasbor ini diatur dengan menggunakan ", a("bslib.", href = "https://CRAN.R-project.org/package=bslib", target = "_blank")),
+          p("Paket-paket ", a("dplyr,", href = "https://CRAN.R-project.org/package=dplyr", target = "_blank"), a("tidyr,", href = "https://CRAN.R-project.org/package=tidyr", target = "_blank"), " dan ", a("ggplot2", href = "https://ggplot2.tidyverse.org", target = "_blank"), " juga digunakan dalam pengembangan aplikasi ini. Paket dplyr digunakan untuk memanipulasi data, tidyr untuk membuat data yang rapi, dan ggplot2 untuk membuat grafik.")
         ),
         nav_panel(
           #### Pengembang ----
@@ -133,28 +143,23 @@ ui <- page_navbar(
         nav_panel(
           #### Kode Sumber ----
           title = "Kode Sumber",
-          p("Kode sumber aplikasi ini tersedia di", a("repositori Github.", href = "https://github.com/ydkristanto/apl-simulasi-tabungan", target = "_blank"), "Jika Anda ingin melaporkan masalah atau meminta fitur tambahan terhadap aplikasi ini, silakan", a("buat sebuah isu", href = "https://github.com/ydkristanto/apl-simulasi-tabungan/issues", target = "_blank"), "atau lebih baik lagi", a("minta penarikan", href = "https://github.com/ydkristanto/apl-simulasi-tabungan/pulls", target = "_blank"), "di repositori tersebut.")
+          p("Kode sumber aplikasi ini tersedia di", a("repositori Github.", href = "https://github.com/ydkristanto/apl-lempar-undi-dadu", target = "_blank"), "Jika Anda ingin melaporkan masalah atau meminta fitur tambahan terhadap aplikasi ini, silakan", a("buat sebuah isu", href = "https://github.com/ydkristanto/apl-lempar-undi-dadu/issues", target = "_blank"), "atau lebih baik lagi", a("minta penarikan", href = "https://github.com/ydkristanto/apl-lempar-undi-dadu/pulls", target = "_blank"), "di repositori tersebut.")
         )
       ),
-      #### Matematika ----
-      navset_card_underline(
-        nav_panel(
-          title = "Deposito",
-          withMathJax(),
-          p("Deposito merupakan tabungan/simpanan yang pencairannya hanya dapat dilakukan pada jangka waktu tertentu. Bunga yang diterima dalam deposito tersebut merupakan bunga majemuk dan penghitungannya dilakukan setiap periode tertentu (umumnya tiap akhir bulan atau 12 kali dalam setahun)."),
-          p("Misalkan seorang nasabah memberikan setoran awal sejumlah \\(P\\) kepada bank yang memberikan bunga \\(r\\) per tahunnya dan dihitung \\(n\\) kali setiap tahunnya. Dalam jangka waktu \\(t\\) tahun, jumlah tabungannya dapat dihitung dengan menggunakan rumus berikut."),
-          p("$$A(t)=P\\left(1+\\frac{r}{n}\\right)^{nt}$$"),
-          p("Ketika penghitungan bunga dilakukan secara kontinu (\\(n\\) mendekati tak hingga), rumusnya menjadi seperti berikut."),
-          p("$$A(t)=Pe^{rt}$$dengan \\(e\\) adalah sebuah konstanta matematis yang nilainya kurang lebih sama dengan 2,718282.")
-        ),
-        nav_panel(
-          title = "Tabungan Berjangka",
-          p("Tabungan berjangka merupakan tabungan/simpanan yang memungkinkan nasabah menabung secara rutin dalam jangka waktu tertentu. Tabungan berjangka ini merupakan bagian dari ", a("anuitas.", href = "https://kbbi.kemdikbud.go.id/entri/anuitas", target = "_blank"), " Dalam aplikasi ini, tabungan berjangka tersebut menganggap bahwa nasabah melakukan setoran dengan besaran yang sama setiap bulannya."),
-          p("Misalnya seorang nasabah melakukan setoran sejumlah \\(R\\) secara rutin sebanyak \\(n\\) kali kepada bank yang memberikan bunga \\(i\\) per periode waktu tertentu. Jumlah tabungan akhirnya dapat ditentukan dengan rumus berikut."),
-          p("$$A_f=R\\frac{(1+i)^n-1}{i}$$")
-        )
+      #### Hukum Bilangan Besar ----
+      card(
+        card_header("Hukum Bilangan Besar"),
+        p("Ide matematis yang didemonstrasikan dalam aplikasi ini merupakan kasus khusus dari Hukum Bilangan Besar. Simulasi mengenai hukum ini dapat diakses melalui ", a("https://people.usd.ac.id/~ydkristanto/app/hukum-bil-besar/.", href = "https://people.usd.ac.id/~ydkristanto/app/hukum-bil-besar/", target = "_blank"))
       )
     )
+  ),
+  nav_spacer(),
+  nav_menu(
+    title = "Tautan",
+    nav_item(tautan_apl_lain),
+    nav_item(tautan_github),
+    icon = shiny::icon("link"),
+    align = "right"
   )
 )
 
@@ -185,68 +190,47 @@ server <- function(input, output, session) {
   observeEvent(input$tombol_eksperimen, {
     # Input
     sukses <- input$sukses
-    n_lempar <- input$n_lempar
+    n_lempar <- as.numeric(input$n_lempar)
     
-    # Hasil lempar undi setiap anak
-    hasil_abel <- sample(
-      c(1:6),
-      size = n_lempar,
-      replace = TRUE
-    )
-    hasil_ahmad <- sample(
-      c(1:6),
-      size = n_lempar,
-      replace = TRUE
-    )
-    hasil_karuna <- sample(
-      c(1:6),
-      size = n_lempar,
-      replace = TRUE
-    )
-    hasil_paulina <- sample(
-      c(1:6),
-      size = n_lempar,
-      replace = TRUE
-    )
-    hasil_sondang <- sample(
-      c(1:6),
-      size = n_lempar,
-      replace = TRUE
+    # Hasil lempar undi
+    matriks_hasil <- matrix(
+      sample(1:6, 5 * n_lempar, replace = TRUE),
+      ncol = 5,
+      byrow = FALSE,
+      dimnames = list(
+        1:n_lempar,
+        c("Abel", "Ahmad", "Karuna", "Paulina", "Sondang")
+      )
     )
     
     # Menambah data eksperimen
     data_eksperimen() %>% 
       add_row(
-        `Hasil Abel` = hasil_abel,
+        `Hasil Abel` = matriks_hasil[, "Abel"],
         `Kategori Abel` = ifelse(
           `Hasil Abel` %in% sukses,
           "Sukses", "Gagal"
         ),
-        `Frek. Rel. Abel` = rep(NA, n_lempar),
-        `Hasil Ahmad` = hasil_ahmad,
+        `Hasil Ahmad` = matriks_hasil[, "Ahmad"],
         `Kategori Ahmad` = ifelse(
           `Hasil Ahmad` %in% sukses,
           "Sukses", "Gagal"
         ),
-        `Frek. Rel. Ahmad` = rep(NA, n_lempar),
-        `Hasil Karuna` = hasil_karuna,
+        `Hasil Karuna` = matriks_hasil[, "Karuna"],
         `Kategori Karuna` = ifelse(
           `Hasil Karuna` %in% sukses,
           "Sukses", "Gagal"
         ),
-        `Frek. Rel. Karuna` = rep(NA, n_lempar),
-        `Hasil Paulina` = hasil_paulina,
+        `Hasil Paulina` = matriks_hasil[, "Paulina"],
         `Kategori Paulina` = ifelse(
           `Hasil Paulina` %in% sukses,
           "Sukses", "Gagal"
         ),
-        `Frek. Rel. Paulina` = rep(NA, n_lempar),
-        `Hasil Sondang` = hasil_sondang,
+        `Hasil Sondang` = matriks_hasil[, "Sondang"],
         `Kategori Sondang` = ifelse(
           `Hasil Sondang` %in% sukses,
           "Sukses", "Gagal"
-        ),
-        `Frek. Rel. Sondang` = rep(NA, n_lempar)
+        )
       ) %>% data_eksperimen()
   })
   
@@ -436,7 +420,10 @@ server <- function(input, output, session) {
           size = 3,
           alpha = .8
         ) +
-        ylim(0, 1) +
+        scale_y_continuous(
+          breaks = c(seq(0, 1, 0.25)),
+          limits = c(0, 1)
+        ) +
         scale_color_viridis_d(
           name = "Nama Pelempar"
         ) +
@@ -446,8 +433,8 @@ server <- function(input, output, session) {
           plot.title = element_text(face = "bold")
         ) +
         labs(
-          title = "Hubungan Antara Nomor Lempar Undi dan Frekuensi Relatif",
-          x = "Nomor Lempar Undi",
+          title = "Hubungan Banyak Lempar Undi dan Frekuensi Relatif",
+          x = "Banyak Lempar Undi",
           y = "Frekuensi Relatif"
         )
       if (input$garis_bantu == TRUE) {
@@ -456,6 +443,10 @@ server <- function(input, output, session) {
             yintercept = length(sukses) / 6,
             linetype = "dashed",
             linewidth = 1
+          ) +
+          scale_y_continuous(
+            breaks = c(seq(0, 1, 0.25), round(length(sukses) / 6, 2)),
+            limits = c(0, 1)
           )
       }
     } else {
@@ -464,15 +455,27 @@ server <- function(input, output, session) {
         aes(x, y)
       ) +
         geom_blank() +
+        geom_label(
+          aes(
+            x = 5, y = .5,
+            label = "Silakan mulai mengumpulkan data!",
+            hjust = .5,
+            size = 24
+          ),
+          show.legend = FALSE
+        ) +
         theme_bw(
           base_size = 16
         ) +
+        ylim(0, 1) +
         theme(
-          plot.title = element_text(face = "bold")
+          plot.title = element_text(face = "bold"),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank()
         ) +
         labs(
-          title = "Hubungan Antara Nomor Lempar Undi dan Frekuensi Relatif",
-          x = "Nomor Lempar Undi",
+          title = "Hubungan Antara Banyak Lempar Undi dan Frekuensi Relatif",
+          x = "Banyak Lempar Undi",
           y = "Frekuensi Relatif"
         )
     }
@@ -501,7 +504,8 @@ server <- function(input, output, session) {
       ),
     striped = TRUE,
     hover = TRUE,
-    rownames = TRUE
+    rownames = TRUE,
+    width = "100%"
   )
     
 }
